@@ -9,10 +9,10 @@
 
 <style>
 
-/* SAME BACKGROUND FOR BOTH PAGES */
+/* SAME BACKGROUND */
 body {
     margin: 0;
-    overflow: hidden;
+    overflow-x: hidden;   /* allow vertical scroll */
     background: linear-gradient(to right, #e57f82, #fdc4eb);
     font-family: 'Allura', cursive;
 }
@@ -32,40 +32,21 @@ body {
     50% { opacity: 1; }
     100% { transform: translateY(-110vh); opacity: 0; }
 }
-.celebrate {
-    position: fixed;
-    font-size: 60px;
-    animation: floatSide 3s ease-in-out infinite alternate;
-    z-index: 2;
-}
 
-.celebrate-gif {
-    position: fixed;
-    width: 140px;
-    z-index: 2;
-    animation: floatSide 3s ease-in-out infinite alternate;
-}
-
-
-
-
-@keyframes floatSide {
-    from { transform: translateY(0px); }
-    to { transform: translateY(-25px); }
-}
-
-/* Center wrapper */
+/* Wrapper */
 .wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 40px 0;
 }
 
-/* White box */
+/* Responsive White Box */
 .container {
     background: white;
-    width: 750px;
+    width: 90%;
+    max-width: 750px;
     padding: 60px;
     border-radius: 30px;
     text-align: center;
@@ -84,7 +65,7 @@ h1 {
     color: #7a1f3d;
 }
 
-/* Login Page */
+/* Login Input */
 #loginPage input {
     padding: 15px;
     width: 70%;
@@ -104,8 +85,10 @@ button {
     cursor: pointer;
     margin: 10px;
 }
+
+/* Big Error Message */
 #errorMessage {
-    font-size: 28px;       /* Bigger text */
+    font-size: 30px;
     font-weight: bold;
     color: #d63384;
     margin-top: 20px;
@@ -125,7 +108,7 @@ button {
     font-weight: bold;
 }
 
-/* Celebration outside box */
+/* Celebration Emojis */
 .celebrate {
     position: fixed;
     font-size: 60px;
@@ -136,6 +119,49 @@ button {
 @keyframes bounce {
     from { transform: translateY(0); }
     to { transform: translateY(-20px); }
+}
+
+/* GIF Celebration */
+.celebrate-gif {
+    position: fixed;
+    width: 130px;
+    z-index: 2;
+    animation: floatSide 3s ease-in-out infinite alternate;
+}
+
+@keyframes floatSide {
+    from { transform: translateY(0px); }
+    to { transform: translateY(-25px); }
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+
+    .container {
+        padding: 30px;
+        border-radius: 20px;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+
+    .letter {
+        font-size: 20px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    #finalMessage {
+        font-size: 20px;
+    }
+
+    #errorMessage {
+        font-size: 22px;
+    }
 }
 
 </style>
@@ -153,9 +179,8 @@ function createHeart() {
 
     let left = Math.random() * 100;
 
-    /* Avoid white box middle area */
     if (left > 30 && left < 70) {
-        left = left < 50 ? 15 : 85;
+        left = left < 50 ? 10 : 85;
     }
 
     heart.style.left = left + "vw";
@@ -180,8 +205,7 @@ setInterval(createHeart, 400);
     <br>
     <button onclick="checkName()">Enter 💌</button>
 
-    <p id="errorMessage" style="color:red;"></p>
-     
+    <p id="errorMessage"></p>
 
 </div>
 
@@ -192,22 +216,12 @@ setInterval(createHeart, 400);
 
     <div class="letter">
         <p><b>Dear Swas,</b></p>
-        <p>
-        In all the world there is no heart for me like yours,
-        and in all the world there is no love for you like mine. ❤️
-        </p>
-        <p>
-        You are my peace, my happiness, and my forever. 💕
-        </p>
-        <p>
-        I honestly cannot imagine my life without you in it.
-        </p>
-        <p>
-        I know we fight alot but afterall its kinda normal for us .
-        </p>
-        <p>
-        I will be your supporter and helper whenever u need me in your life.
-        </p>
+        <p>In all the world there is no heart for me like yours,
+        and in all the world there is no love for you like mine. ❤️</p>
+        <p>You are my peace, my happiness, and my forever. 💕</p>
+        <p>I honestly cannot imagine my life without you in it.</p>
+        <p>I know we fight alot but afterall its kinda normal for us.</p>
+        <p>I will be your supporter and helper whenever u need me in your life.</p>
     </div>
 
     <h2 style="font-family:'Great Vibes'; font-size:45px;">
@@ -225,7 +239,7 @@ setInterval(createHeart, 400);
 
 <script>
 
-/* Name Validation */
+/* Name Check */
 function checkName() {
     let name = document.getElementById("nameInput").value.trim().toLowerCase();
     let validNames = ["swastika", "swas", "jhilik"];
@@ -235,13 +249,11 @@ function checkName() {
         document.getElementById("valentinePage").classList.remove("hidden");
     } else {
         document.getElementById("errorMessage").innerHTML =
-        `You are not Valentine of Anurag 😤 Go away!
-        <br>
-        <img src="https://cdn3.emoji.gg/emojis/9832-angrycat.png" 
-             style="width:80px; margin-top:10px;">`;
+        `You are not Valentine of Anurag 😤 Go away!<br>
+        <img src="https://cdn3.emoji.gg/emojis/9832-angrycat.png"
+        style="width:80px; margin-top:10px;">`;
     }
 }
-
 
 /* No Button */
 function noClicked() {
@@ -250,15 +262,12 @@ function noClicked() {
 }
 
 /* Yes Button */
-
-
 function yesClicked() {
 
     document.getElementById("finalMessage").innerHTML =
     "Yayyyy 💖 You chose correctly!!! 🎉✨";
 
-    /* 💥 LOTS OF EMOJIS */
-    for(let i=0;i<30;i++){
+    for(let i=0;i<35;i++){
         let item = document.createElement("div");
         item.classList.add("celebrate");
 
@@ -272,7 +281,7 @@ function yesClicked() {
         let left = Math.random()*100;
 
         if (left > 30 && left < 70) {
-            left = left < 50 ? 8 : 88;
+            left = left < 50 ? 5 : 90;
         }
 
         item.style.left = left + "vw";
@@ -282,20 +291,12 @@ function yesClicked() {
         setTimeout(()=> item.remove(),5000);
     }
 
-    /* 💕 COUPLE GIF */
     addSideGif("https://media.tenor.com/WX9IEmZZKqQAAAAi/love-couple.gif");
-
-    /* 🤗 HUG GIF */
     addSideGif("https://media.tenor.com/9J9yXoN8X9kAAAAi/hug-love.gif");
-
-    /* 🎊 CELEBRATION GIF */
     addSideGif("https://media.tenor.com/VgQZzJ2vWk8AAAAi/party-confetti.gif");
-
-    /* 💑 EXTRA ROMANTIC GIF */
-    addSideGif("https://media.tenor.com/fSsxftCb8w0AAAAi/love-heart.gif");
 }
 
-/* SIDE GIF FUNCTION */
+/* Side GIF */
 function addSideGif(url) {
     let gif = document.createElement("img");
     gif.src = url;
@@ -311,12 +312,10 @@ function addSideGif(url) {
     gif.style.top = Math.random()*80 + "vh";
 
     document.body.appendChild(gif);
-
     setTimeout(()=> gif.remove(),7000);
 }
+
 </script>
-
-
 
 </body>
 </html>
